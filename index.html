@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Circuitos</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -66,8 +67,7 @@
       border-radius: 12px;
     }
 
-    th,
-    td {
+    th, td {
       border: 1px solid #2f2f2f;
       text-align: center;
       padding: 12px 10px;
@@ -76,7 +76,6 @@
     th {
       background-color: #ffffff;
       color: #000000;
-      font-size: 16px;
     }
 
     td {
@@ -93,12 +92,6 @@
       background-color: #000000;
       color: #ffffff;
       font-size: 16px;
-      outline: none;
-    }
-
-    input[type="text"]:focus {
-      border-color: #ffffff;
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
     }
 
     .panel-derecho {
@@ -119,24 +112,14 @@
       border-radius: 12px;
       padding: 16px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
       font-size: 18px;
-    }
-
-    .interruptor-item label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      cursor: pointer;
     }
 
     input[type="checkbox"] {
       width: 20px;
       height: 20px;
       accent-color: #ffffff;
-      cursor: pointer;
     }
 
     .salida-led {
@@ -147,9 +130,21 @@
       text-align: center;
     }
 
-    .salida-led p {
-      font-size: 22px;
-      margin-bottom: 16px;
+    @keyframes brillo {
+      0% { box-shadow: 0 0 5px #fff; }
+      50% { box-shadow: 0 0 25px #fff; }
+      100% { box-shadow: 0 0 5px #fff; }
+    }
+
+    .led-on {
+      background-color: #ffffff;
+      color: #000000;
+      animation: brillo 1s infinite;
+    }
+
+    .led-off {
+      background-color: #000000;
+      color: #ffffff;
     }
 
     #led {
@@ -160,104 +155,82 @@
       height: 80px;
       border-radius: 50%;
       border: 2px solid #ffffff;
-      background-color: #000000;
-      color: #ffffff;
       font-size: 28px;
       font-weight: bold;
     }
-
-    @media (max-width: 900px) {
-      .secciones {
-        grid-template-columns: 1fr;
-      }
-
-      .interruptores {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
 </head>
+
 <body>
-  <div class="contenedor-principal">
-    <h1>Simulador de Circuitos con Tabla de Verdad</h1>
+
+<div class="contenedor-principal">
+  <h1>Simulador de Circuitos</h1>
 
   <div class="secciones">
-      <div class="bloque">
-        <h2>Tabla de verdad</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>d</th>
-              <th>c</th>
-              <th>b</th>
-              <th>a</th>
-              <th>f</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>0</td><td>0</td><td>0</td><td>0</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>0</td><td>0</td><td>0</td><td>1</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>0</td><td>0</td><td>1</td><td>0</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>0</td><td>0</td><td>1</td><td>1</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>0</td><td>1</td><td>0</td><td>0</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>0</td><td>1</td><td>0</td><td>1</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>0</td><td>1</td><td>1</td><td>0</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>0</td><td>1</td><td>1</td><td>1</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>1</td><td>0</td><td>0</td><td>0</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>1</td><td>0</td><td>0</td><td>1</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>1</td><td>0</td><td>1</td><td>0</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>1</td><td>0</td><td>1</td><td>1</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>1</td><td>1</td><td>0</td><td>0</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>1</td><td>1</td><td>0</td><td>1</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>1</td><td>1</td><td>1</td><td>0</td><td><input type="text" maxlength="1"></td></tr>
-            <tr><td>1</td><td>1</td><td>1</td><td>1</td><td><input type="text" maxlength="1"></td></tr>
-          </tbody>
-        </table>
-      </div>
 
-      <div class="panel-derecho">
-        <div class="bloque">
-          <h2>Interruptores</h2>
-          <div class="interruptores">
-  <div class="interruptor-item">
-              <label>
-                <span>d</span>
-                <input type="checkbox" id="switch-d">
-              </label>
-            </div>
-  <div class="interruptor-item">
-              <label>
-                <span>c</span>
-                <input type="checkbox" id="switch-c">
-              </label>
-            </div>
-  <div class="interruptor-item">
-              <label>
-                <span>b</span>
-                <input type="checkbox" id="switch-b">
-              </label>
-            </div>
-  <div class="interruptor-item">
-              <label>
-                <span>a</span>
-                <input type="checkbox" id="switch-a">
-              </label>
-            </div>
+    <div class="bloque">
+      <h2>Tabla de verdad</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>d</th>
+            <th>c</th>
+            <th>b</th>
+            <th>a</th>
+            <th>f</th>
+          </tr>
+        </thead>
+        <tbody>
 
-            </div>
-        </div>
+          <!-- 16 FILAS CORREGIDAS -->
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>0</td><td>0</td><td>0</td><td>1</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>0</td><td>0</td><td>1</td><td>0</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>0</td><td>0</td><td>1</td><td>1</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>0</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>1</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>0</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>1</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>0</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>0</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>1</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>0</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>1</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>0</td><td><input class="entrada-f" maxlength="1"></td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>1</td><td><input class="entrada-f" maxlength="1"></td></tr>
 
-        <div class="bloque">
-          <h2>Salida</h2>
-          <div class="salida-led">
-            <p>LED</p>
-            <span id="led">0</span>
-          </div>
-        </div>
-      </div>
+        </tbody>
+      </table>
     </div>
 
-      <script src="circuito.js"></script>
+    <div class="panel-derecho">
+
+      <div class="bloque">
+        <h2>Interruptores</h2>
+
+        <div class="interruptores">
+          <div class="interruptor-item">d <input type="checkbox" id="switch-d"></div>
+          <div class="interruptor-item">c <input type="checkbox" id="switch-c"></div>
+          <div class="interruptor-item">b <input type="checkbox" id="switch-b"></div>
+          <div class="interruptor-item">a <input type="checkbox" id="switch-a"></div>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <h2>Salida</h2>
+        <div class="salida-led">
+          <span id="led">0</span>
+        </div>
+      </div>
+
+    </div>
+
   </div>
+
+</div>
+
+<script src="circuito.js"></script>
+
 </body>
 </html>

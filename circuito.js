@@ -17,17 +17,15 @@ function actualizarLed() {
   const indice = obtenerIndiceActual();
   const valor = entradasF[indice].value;
 
-  if (valor === '1') {
-    led.textContent = '1';
-    led.style.backgroundColor = '#ffffff';
-    led.style.color = '#000000';
-    led.style.boxShadow = '0 0 20px rgba(255,255,255,0.8)';
-  } else {
-    led.textContent = '0';
-    led.style.backgroundColor = '#000000';
-    led.style.color = '#ffffff';
-    led.style.boxShadow = 'none';
-  }
+if (valor === '1') {
+  led.textContent = '1';
+  led.classList.add('led-on');
+  led.classList.remove('led-off');
+} else {
+  led.textContent = '0';
+  led.classList.add('led-off');
+  led.classList.remove('led-on');
+}
 }
 
 entradasF.forEach(function(input) {
